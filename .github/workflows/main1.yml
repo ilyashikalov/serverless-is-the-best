@@ -1,0 +1,41 @@
+ 
+
+on: [push]
+  
+jobs:
+  function_version_deployment_job:
+    runs-on: ubuntu-latest
+    name: Function redeployment job
+    steps:
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core @actions/http-client
+      # Getting the workflow task token
+      - name: Get Id Token
+        uses: actions/github-script@v7
+        id: tokenid
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            let id_token = await coredemo.getIDToken()
+            coredemo.setOutput('id_token', id_token)
+      # Exchanging the workflow task token for an IAM token of a service account in Yandex Cloud
+      - name: GetIAMToken
+        run: |
+          SA_ID="ajekkobo1pq92hgu01ar"
+          IAMTOKEN=$(curl -sH "Content-Type: application/x-www-form-urlencoded" -d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange&requested_token_type=urn:ietf:params:oauth:token-type:access_token&audience=$SA_ID&subject_token=${{steps.tokenid.outputs.id_token}}&subject_token_type=urn:ietf:params:oauth:token-type:id_token" -X POST https://auth.yandex.cloud/oauth/token | jq -r '.access_token')
+          echo "IAMToken=${IAMTOKEN}" >> $GITHUB_OUTPUT
+        id: IAMtoken
+
+      # Requesting list of functions via the API using an IAM token in Yandex Cloud
+      - name: Trigger function redeployment step
+        id: redeployment
+        run: |
+          VERSIONS_DATA=$(curl -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions?folderId=b1gpbamg8gs2uahuonc0)
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "text<<$EOF" >> $GITHUB_ENV
+          echo "versions=${VERSIONS_DATA}" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+          echo ${VERSIONS_DATA}
+      - name: Show output
+        run: |
+          echo "Versions: ${{ steps.redeployment.outputs.versions}}"
