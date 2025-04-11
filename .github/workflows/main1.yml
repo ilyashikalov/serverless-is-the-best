@@ -9,6 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Function redeployment job
     steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
+      - run: npm run build --if-present
+      
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core @actions/http-client
       # Getting the workflow task token
