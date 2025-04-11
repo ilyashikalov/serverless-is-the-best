@@ -37,8 +37,8 @@ jobs:
       - name: GetIAMToken
         run: |
           SA_ID="ajegot41f9ofbcmqpm3l"
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           IAMTOKEN=$(curl -sH "Content-Type: application/x-www-form-urlencoded" -d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange&requested_token_type=urn:ietf:params:oauth:token-type:access_token&audience=$SA_ID&subject_token=${{steps.tokenid.outputs.id_token}}&subject_token_type=urn:ietf:params:oauth:token-type:id_token" -X POST https://auth.yandex.cloud/oauth/token | jq -r '.access_token')
+          echo "IAMToken=${IAMTOKEN}" >> $GITHUB_OUTPUT
         id: IAMtoken
 
       # Requesting list of functions via the API using an IAM token in Yandex Cloud
@@ -55,5 +55,3 @@ jobs:
       - name: Show output
         run: |
           echo "Versions: ${{ steps.redeployment.outputs.versions}}"
-            let id_token = await coredemo.getIDToken()
-            coredemo.setOutput('id_token', id_token)
