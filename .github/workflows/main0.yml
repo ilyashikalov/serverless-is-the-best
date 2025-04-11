@@ -1,0 +1,20 @@
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+on: [push]
+  
+jobs:
+  function_version_deployment_job:
+    runs-on: ubuntu-latest
+    name: Function redeployment job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
+      - run: npm run build --if-present
+ 
