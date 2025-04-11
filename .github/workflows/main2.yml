@@ -2,9 +2,9 @@ name: YC Function Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ mainXX ]
   pull_request:
-    branches: [ main ]
+    branches: [ mainXX ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
