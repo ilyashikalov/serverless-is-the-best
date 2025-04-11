@@ -43,7 +43,7 @@ jobs:
       - name: Trigger function redeployment step
         id: redeployment
         run: |
-          FOLDER_ID = b1gglm04p12mqvn207mq
+          FOLDER_ID = "b1gglm04p12mqvn207mq"
           VERSIONS_DATA=$(curl -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions?folderId=$FOLDER_ID)
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "text<<$EOF" >> $GITHUB_ENV
