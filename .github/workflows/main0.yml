@@ -36,6 +36,7 @@ jobs:
             const coredemo = require('@actions/core')
             let id_token = await coredemo.getIDToken()
             coredemo.setOutput('id_token', id_token)
+            console.log(context)
             
       # Exchanging the workflow task token for an IAM token of a service account in Yandex Cloud
       - name: GetIAMToken
