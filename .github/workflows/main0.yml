@@ -64,7 +64,7 @@ jobs:
             "functionId": "${{env.FUNCTION_ID}}",
             "runtime": "${{env.FUNCTION_RUNTIME}}",
             "description": "string",
-            "entrypoint": "${env.FUNCTION_ENTRYPOINT}", 
+            "entrypoint": "${{env.FUNCTION_ENTRYPOINT}}", 
             "resources": { 
               "memory": "268435456" 
             },
