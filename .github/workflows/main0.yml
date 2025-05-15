@@ -9,7 +9,10 @@ on:
   workflow_dispatch:
 
 env:
+  SA_ID: aje9gng5ufshjitn0o2j
   FUNCTION_ID: d4eeeunku0dgngd7l56e
+  FUNCTION_RUNTIME: nodejs18
+  FUNCTION_ENTRYPOINT: index.handler
   
 jobs:
   function_version_deployment_job:
@@ -44,8 +47,8 @@ jobs:
       # Exchanging the workflow task token for an IAM token of a service account in Yandex Cloud
       - name: GetIAMToken
         run: |
-          SA_ID="aje9gng5ufshjitn0o2j"
-          IAMTOKEN=$(curl -sH "Content-Type: application/x-www-form-urlencoded" -d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange&requested_token_type=urn:ietf:params:oauth:token-type:access_token&audience=$SA_ID&subject_token=${{steps.tokenid.outputs.id_token}}&subject_token_type=urn:ietf:params:oauth:token-type:id_token" -X POST https://auth.yandex.cloud/oauth/token | jq -r '.access_token')
+          
+          IAMTOKEN=$(curl -sH "Content-Type: application/x-www-form-urlencoded" -d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange&requested_token_type=urn:ietf:params:oauth:token-type:access_token&audience=${{env.SA_ID}}&subject_token=${{steps.tokenid.outputs.id_token}}&subject_token_type=urn:ietf:params:oauth:token-type:id_token" -X POST https://auth.yandex.cloud/oauth/token | jq -r '.access_token')
           echo "IAMToken=${IAMTOKEN}" >> $GITHUB_OUTPUT
         id: IAMtoken
 
@@ -53,22 +56,19 @@ jobs:
       - name: Trigger function redeployment step
         id: redeployment
         run: |
-
-          # VERSIONS_DATA=$(curl -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions?folderId=$FOLDER_ID)
           FILE_BYTES=$(cat ./function.zip | base64)
                     
           curl -X POST -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions \
             -d @- << EOF 
           { 
             "functionId": "${{env.FUNCTION_ID}}",
-            "runtime": "nodejs18",
+            "runtime": "${{env.FUNCTION_RUNTIME}}",
             "description": "string",
-            "entrypoint": "index.handler", 
+            "entrypoint": "${env.FUNCTION_ENTRYPOINT}", 
             "resources": { 
               "memory": "268435456" 
             },
             "executionTimeout": "3s", 
-            "serviceAccountId": "", 
             "content": '${FILE_BYTES}',
             "logOptions": { 
               "disabled": "true" 
