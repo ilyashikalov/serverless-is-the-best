@@ -7,6 +7,9 @@ on:
     branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+env:
+  FUNCTION_ID: d4eeeunku0dgngd7l56e
   
 jobs:
   function_version_deployment_job:
@@ -42,8 +45,6 @@ jobs:
       - name: GetIAMToken
         run: |
           SA_ID="aje9gng5ufshjitn0o2j"
-          FOLDER_ID="b1gpbamg8gs2uahuonc0"
-          FUNCTION_ID="d4eeeunku0dgngd7l56e"
           IAMTOKEN=$(curl -sH "Content-Type: application/x-www-form-urlencoded" -d "grant_type=urn:ietf:params:oauth:grant-type:token-exchange&requested_token_type=urn:ietf:params:oauth:token-type:access_token&audience=$SA_ID&subject_token=${{steps.tokenid.outputs.id_token}}&subject_token_type=urn:ietf:params:oauth:token-type:id_token" -X POST https://auth.yandex.cloud/oauth/token | jq -r '.access_token')
           echo "IAMToken=${IAMTOKEN}" >> $GITHUB_OUTPUT
         id: IAMtoken
@@ -56,10 +57,10 @@ jobs:
           # VERSIONS_DATA=$(curl -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions?folderId=$FOLDER_ID)
           FILE_BYTES=$(cat ./function.zip | base64)
                     
-          curl  -v -X POST -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions \
+          curl -X POST -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions \
             -d @- << EOF 
           { 
-            "functionId": "${FUNCTION_ID}",
+            "functionId": "${{env.FUNCTION_ID}}",
             "runtime": "nodejs18",
             "description": "string",
             "entrypoint": "index.handler", 
