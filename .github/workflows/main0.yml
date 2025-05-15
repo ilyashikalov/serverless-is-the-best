@@ -66,18 +66,9 @@ jobs:
             "runtime": "${{env.FUNCTION_RUNTIME}}",
             "entrypoint": "${{env.FUNCTION_ENTRYPOINT}}", 
             "resources": { 
-              "memory": "268435456" 
+              "memory": "${{env.FUNCTION_MEMORY}}"
             },
             "executionTimeout": "3s", 
             "content": '${FILE_BYTES}'
           }
           EOF
-
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "text<<$EOF" >> $GITHUB_ENV
-          echo "versions=${VERSIONS_DATA}" >> $GITHUB_ENV
-          echo "$EOF" >> $GITHUB_ENV
-          echo ${VERSIONS_DATA}
-      - name: Show output
-        run: |
-          echo "Versions: ${{ steps.redeployment.outputs.versions}}"
