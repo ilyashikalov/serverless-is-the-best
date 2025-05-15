@@ -56,7 +56,7 @@ jobs:
           # VERSIONS_DATA=$(curl -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions?folderId=$FOLDER_ID)
           FILE_BYTES=$(cat ./function.zip | base64)
                     
-          curl  -v -X POST -sH "Authorization: Bearer ${YC_TOKEN}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions \
+          curl  -v -X POST -sH "Authorization: Bearer ${{steps.IAMtoken.outputs.IAMTOKEN}}" https://serverless-functions.api.cloud.yandex.net/functions/v1/versions \
             -d @- << EOF 
           { 
             "functionId": "${FUNCTION_ID}",
