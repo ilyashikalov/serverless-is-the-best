@@ -13,6 +13,7 @@ env:
   FUNCTION_ID: d4eeeunku0dgngd7l56e
   FUNCTION_RUNTIME: nodejs18
   FUNCTION_ENTRYPOINT: index.handler
+  FUNCTION_MEMORY: 268435456
   
 jobs:
   function_version_deployment_job:
@@ -63,16 +64,12 @@ jobs:
           { 
             "functionId": "${{env.FUNCTION_ID}}",
             "runtime": "${{env.FUNCTION_RUNTIME}}",
-            "description": "string",
             "entrypoint": "${{env.FUNCTION_ENTRYPOINT}}", 
             "resources": { 
               "memory": "268435456" 
             },
             "executionTimeout": "3s", 
-            "content": '${FILE_BYTES}',
-            "logOptions": { 
-              "disabled": "true" 
-            } 
+            "content": '${FILE_BYTES}'
           }
           EOF
 
