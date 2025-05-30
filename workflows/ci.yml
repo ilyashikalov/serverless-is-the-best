@@ -37,4 +37,4 @@ jobs:
             **/*.json
             **/*.js
           tags: |
-            ${{ GITHUB_SHA::6 }}
+            ci
