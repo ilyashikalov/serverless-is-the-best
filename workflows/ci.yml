@@ -19,6 +19,7 @@ env:
   
 jobs:
   build:
+    environment: test
     runs-on: ubuntu-latest
     
     steps:
@@ -36,5 +37,4 @@ jobs:
           include: |
             **/*.json
             **/*.js
-          tags: |
-            ci
+
