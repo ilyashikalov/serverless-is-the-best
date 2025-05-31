@@ -4,6 +4,9 @@ permissions:
 on: 
   push:
     branches: [ feature** ]
+    paths-ignore:
+      - '.github/**'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -30,7 +33,7 @@ jobs:
           folder-id: ${{env.FOLDER_ID}}
           function-name: ${{env.FUNCTION_NAME}}
           runtime: ${{env.FUNCTION_RUNTIME}}
-          memory: ${{env.MEMORY}}
+          memory: ${{env.FUNCTION_MEMORY}}
           entrypoint: ${{env.FUNCTION_ENTRYPOINT}}
           include: |
             **/*.json

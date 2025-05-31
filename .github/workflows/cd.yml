@@ -6,9 +6,11 @@ on:
     branches:
       - main
       - releases**
+    paths-ignore:
+      - '.github/**'
 
   release:
-    types
+    types:
       - published
       - released
 
@@ -38,7 +40,7 @@ jobs:
           folder-id: ${{env.FOLDER_ID}}
           function-name: ${{env.FUNCTION_NAME}}
           runtime: ${{env.FUNCTION_RUNTIME}}
-          memory: ${{env.MEMORY}}
+          memory: ${{env.FUNCTION_MEMORY}}
           entrypoint: ${{env.FUNCTION_ENTRYPOINT}}
           include: |
             **/*.json
