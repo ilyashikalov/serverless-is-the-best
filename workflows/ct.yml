@@ -2,7 +2,7 @@ permissions:
   id-token: write # This is required for requesting the JWT
 
 on: 
-  pull-request:
+  pull_request_target:
     branches: [ main ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
