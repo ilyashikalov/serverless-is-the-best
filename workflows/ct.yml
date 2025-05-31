@@ -1,0 +1,45 @@
+permissions:
+  id-token: write # This is required for requesting the JWT
+
+on: 
+  pull-request:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  FOLDER_ID: <Yandex Cloud folder ID>
+  SA_ID: <Service Account ID>
+  FUNCTION_NAME: <Cloud Function name>
+  FUNCTION_RUNTIME: <runtime, run "yc serverless function runtime list" for available values>
+  FUNCTION_ENTRYPOINT: <Cloud Function entrypoint>
+  FUNCTION_MEMORY: <Memory allocated for the function>
+  
+jobs:
+  build:
+    environment: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+      - name: Install dependencies
+        run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test
+      - name: Deploy Function
+        id: sls-func
+        uses: yc-actions/yc-sls-function@v3.1.0
+        with:
+          yc-sa-id: ${{env.SA_ID}}
+          folder-id: ${{env.FOLDER_ID}}
+          function-name: ${{env.FUNCTION_NAME}}
+          runtime: ${{env.FUNCTION_RUNTIME}}
+          memory: ${{env.MEMORY}}
+          entrypoint: ${{env.FUNCTION_ENTRYPOINT}}
+          include: |
+            **/*.json
+            **/*.js
