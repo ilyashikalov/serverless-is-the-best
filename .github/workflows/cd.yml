@@ -7,7 +7,7 @@ on:
       - main
       - releases**
     paths-ignore:
-      - '.github/**'
+      - '.github/**' # this will allow ignore changes in workflow files
 
   release:
     types:
