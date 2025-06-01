@@ -9,11 +9,11 @@ on:
   workflow_dispatch:
 
 env:
-  SA_ID: aje9gng5ufshjitn0o2j
-  FUNCTION_ID: d4eeeunku0dgngd7l56e
-  FUNCTION_RUNTIME: nodejs18
-  FUNCTION_ENTRYPOINT: index.handler
-  FUNCTION_MEMORY: 268435456
+  SA_ID: <Service Account ID>
+  FUNCTION_ID: <Cloud Function Id>
+  FUNCTION_RUNTIME: <runtime, run "yc serverless function runtime list" for available values>
+  FUNCTION_ENTRYPOINT: <Cloud Function entrypoint>
+  FUNCTION_MEMORY: <Memory allocated for the function>
   
 jobs:
   function_version_deployment_job:
