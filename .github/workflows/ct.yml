@@ -2,7 +2,7 @@ permissions:
   id-token: write # This is required for requesting the JWT
 
 on: 
-  pull_request_target:
+  pull_request:
     branches: [ main ]
     paths-ignore:
       - '.github/**'
