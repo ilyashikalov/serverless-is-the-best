@@ -22,6 +22,7 @@ env:
   FUNCTION_RUNTIME: <runtime, run "yc serverless function runtime list" for available values>
   FUNCTION_ENTRYPOINT: <Cloud Function entrypoint>
   FUNCTION_MEMORY: <Memory allocated for the function>
+  FUNCTION_SOURCEROOT: <Directory containing function code in the repository>
   
 jobs:
   build:
@@ -39,6 +40,7 @@ jobs:
           runtime: ${{env.FUNCTION_RUNTIME}}
           memory: ${{env.FUNCTION_MEMORY}}
           entrypoint: ${{env.FUNCTION_ENTRYPOINT}}
+          source-root: ${{env.FUNCTION_SOURCEROOT}}
           include: |
             **/*.json
             **/*.js
