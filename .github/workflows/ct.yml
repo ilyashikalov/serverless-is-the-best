@@ -20,7 +20,7 @@ env:
   
 jobs:
   build:
-    environment:preprod
+    environment: preprod
     runs-on: ubuntu-latest
     
     steps:
