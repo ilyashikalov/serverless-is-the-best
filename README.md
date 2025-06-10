@@ -17,5 +17,6 @@
 
 ![image](https://github.com/user-attachments/assets/6c7e5798-e422-42c2-a168-db3d1fc0d3ac)
 # Полезные материалы
-[Репозиторий yc-sls-function, в котором реализован GitHub action, используемый в workflows](https://github.com/yc-actions/yc-sls-function/blob/main/action.yml)
-[GitHub action, помогающий разобраться в проблемах аутентификации через OpenID Connect](https://github.com/github/actions-oidc-debugger)
+- [Репозиторий yc-sls-function, в котором реализован GitHub action, используемый в workflows](https://github.com/yc-actions/yc-sls-function/blob/main/action.yml)
+- [Статья о пользовании GitHub action выше](https://nikolaymatrosov.ru/2021-11-08-Building-CI-CD-in-Yandex-Cloud-using-GitHub-Actions/)
+- [GitHub action, помогающий разобраться в проблемах аутентификации через OpenID Connect](https://github.com/github/actions-oidc-debugger)
