@@ -20,3 +20,4 @@
 - [Репозиторий yc-sls-function, в котором реализован GitHub action, используемый в workflows](https://github.com/yc-actions/yc-sls-function/blob/main/action.yml)
 - [Статья о пользовании GitHub action выше](https://nikolaymatrosov.ru/2021-11-08-Building-CI-CD-in-Yandex-Cloud-using-GitHub-Actions/)
 - [GitHub action, помогающий разобраться в проблемах аутентификации через OpenID Connect](https://github.com/github/actions-oidc-debugger)
+- [Статья о том, как работает авторизация в Yandex Cloud и как можно создавать привязвки сервисных аккаунтов к федерациям](https://nikolaymatrosov.ru/2025-05-04-Authorizing-in-GitHub-Actions-via-Workload-Identities/)
