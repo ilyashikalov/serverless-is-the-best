@@ -16,7 +16,7 @@
 3. Копируем файлы ci.yml, cd.yml и сt.yml из папки serverless-is-the-best/.github/workflows в .github/workflows репозитория с кодом нашей функции.
 4. Изменяем переменные.
 5. Коммитим и пушим файлы ci.yml, cd.yml и сt.yml.
-## Проверяем работоспособность. При ошибках с доступом используем https://github.com/github/actions-oidc-debugger для поиска ошибок OpenID Connect
+## Проверяем работоспособность
 1. Создаем ветку ```feature/smoke-test```.
 2. Модифицируем файл или файлы кода.
 3. Проверяем, что модифицированные файлы не подпадают под маску в параметре ```paths-ignore``` в секции ```on```.
@@ -26,6 +26,8 @@
 7. Должен запуститься пайплайн ```.github/workflows/ct.yml```.
 8. Мержим пулл-реквест.
 9. Должен запуститься воркфлоу ```.github/workflows/cd.yml```.
+
+При ошибках с доступом используем https://github.com/github/actions-oidc-debugger для поиска ошибок OpenID Connect
 
 ![image](https://github.com/user-attachments/assets/6c7e5798-e422-42c2-a168-db3d1fc0d3ac)
 # Полезные материалы
