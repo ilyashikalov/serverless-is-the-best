@@ -9,7 +9,7 @@
 - Issuer ```https://token.actions.githubusercontent.com```.
 - Aud ```https://github.com/<имяпользователя>```.
 - JWKS ```https://token.actions.githubusercontent.com/.well-known/jwks```.
-4. Создаем привязки сервисного аккаунта к федерации. Задаем Sub : ```repo:<имяпользователя>/<имярепозитория>:environment:preprod``` для тестового окружения, и ```repo:<имяпользователя>/<имярепозитория>:ref:refs/heads/main``` для боевого окружения. Обратите внимание, прод требует изоляции. Например, можно использовать отдельный фолдер, отдельный сервисный аккаунт, отдельная федерация и привязки. Больше деталей по тому, как настроить привязки, вы можете найти [здесь](repo:<имяпользователя>/<имярепозитория>:environment:preprod) и [здесь](https://docs.github.com/en/actions/concepts/security/about-security-hardening-with-openid-connect#example-subject-claims)
+4. Создаем привязки сервисного аккаунта к федерации. Задаем Sub : ```repo:<имяпользователя>/<имярепозитория>:environment:preprod``` для тестового окружения, и ```repo:<имяпользователя>/<имярепозитория>:ref:refs/heads/main``` для боевого окружения. Обратите внимание, прод требует изоляции. Например, можно использовать отдельный фолдер, отдельный сервисный аккаунт, отдельная федерация и привязки. Больше деталей по тому, как настроить привязки, вы можете найти [здесь](https://nikolaymatrosov.ru/2025-05-04-Authorizing-in-GitHub-Actions-via-Workload-Identities/#типы-subject-в-github) и [здесь](https://docs.github.com/en/actions/concepts/security/about-security-hardening-with-openid-connect#example-subject-claims)
 ## Готовим репозиторий с кодом функции 
 1. Клонируем ```git@github.com:ilyashikalov/serverless-is-the-best.git```.
 2. Клонируем целевой репозиторий с кодом функции. Исходный код функции уже должны быть в нем.
